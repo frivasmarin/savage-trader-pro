@@ -2,9 +2,7 @@ from flask import Flask, render_template_string
 
 app = Flask(__name__)
 
-# HTML Template
-HTML_TEMPLATE = """
-<!DOCTYPE html>
+HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -18,38 +16,24 @@ HTML_TEMPLATE = """
             color: white;
             font-family: 'Arial', sans-serif;
         }
-        .hero {
-            padding: 80px 0;
-            text-align: center;
-        }
+        .hero { padding: 80px 0; text-align: center; }
         .logo {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 30px;
+            width: 120px; height: 120px; margin: 0 auto 30px;
             background: linear-gradient(45deg, #ff6b35, #f7931e);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 50px;
-            color: white;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-size: 50px; color: white;
             animation: pulse 2s infinite;
         }
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
-        }        .btn-premium {
+        }
+        .btn-premium {
             background: linear-gradient(45deg, #ff6b35, #f7931e);
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            color: white;
-            font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
-            margin: 10px;
-            transition: all 0.3s;
+            border: none; padding: 15px 30px; border-radius: 50px;
+            color: white; font-weight: bold; text-decoration: none;
+            display: inline-block; margin: 10px; transition: all 0.3s;
         }
         .btn-premium:hover {
             transform: translateY(-3px);
@@ -60,34 +44,51 @@ HTML_TEMPLATE = """
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 40px;
-            margin: 20px 0;
+            border-radius: 20px; padding: 40px; margin: 20px 0;
             transition: transform 0.3s;
         }
-        .price-card:hover {
-            transform: translateY(-10px);
-        }
-        .telegram-link {
-            background: #0088cc;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            display: inline-block;
-            margin: 10px;
-            transition: all 0.3s;
-        }
-        .telegram-link:hover {
-            background: #006699;
-            color: white;
-            transform: translateY(-2px);
-        }
+        .price-card:hover { transform: translateY(-10px); }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="hero">
-            <div class="logo">
-                <i class="fas fa-chart-line"></i>
+            <div class="logo"><i class="fas fa-chart-line"></i></div>
+            <h1 class="display-4 fw-bold mb-4">SAVAGE TRADER PRO</h1>
+            <p class="lead mb-5">Bot de Trading con IA - Señales Premium</p>
+            
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <div class="price-card">
+                        <h3>Plan Basic</h3>
+                        <div class="display-5 fw-bold text-warning">€29/mes</div>
+                        <a href="https://paypal.me/savagetrader/29" class="btn-premium">
+                            <i class="fab fa-paypal"></i> Suscribirse Basic
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="price-card">
+                        <h3>Plan Premium</h3>
+                        <div class="display-5 fw-bold text-warning">€99/mes</div>
+                        <a href="https://paypal.me/savagetrader/99" class="btn-premium">
+                            <i class="fab fa-paypal"></i> Suscribirse Premium
+                        </a>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+</body>
+</html>"""
+
+@app.route('/')
+def index():
+    return render_template_string(HTML_TEMPLATE)
+
+@app.route('/health')
+def health():
+    return {'status': 'healthy', 'service': 'SAVAGE TRADER PRO'}
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
